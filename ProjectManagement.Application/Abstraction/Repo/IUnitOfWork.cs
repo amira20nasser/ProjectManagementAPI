@@ -1,0 +1,15 @@
+﻿
+using ProjectManagement.Domain.Entities;
+
+namespace ProjectManagement.Application.Abstraction.Repo
+{
+    public interface IUnitOfWork
+    {
+        Task<int> SaveChangesAsync();
+        //IGenericRepo<TEntity, TKey> GetRepository<TEntity, TKey>() where TEntity : BaseEntity<TKey>;
+
+       Task BeginTransactionAsync(CancellationToken cancellationToken = default);
+       Task CommitTransactionAsync(CancellationToken cancellationToken = default);
+       Task RollbackTransactionAsync(CancellationToken cancellationToken = default);
+    }
+}
