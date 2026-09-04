@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace ProjectManagement.Domain.Entities
 {
-    internal class Comment
+    public class Comment : BaseEntity<int>
     {
+        public string Content { get; set; } = default!;
+
+        public Guid TaskId { get; set; }
+        public TaskItem Task { get; set; } = default!;
     }
 }

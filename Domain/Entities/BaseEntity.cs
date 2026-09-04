@@ -4,11 +4,14 @@ using System.Text;
 
 namespace ProjectManagement.Domain.Entities
 {
-    internal class BaseEntity<TKey> 
+    public abstract class BaseEntity
     {
-        public TKey Id { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+    }
 
-        public DateTime UpdatedAt { get; set; } 
+    public class BaseEntity<TKey> : BaseEntity
+    {
+        public TKey Id { get; set; } = default!;
     }
 }
