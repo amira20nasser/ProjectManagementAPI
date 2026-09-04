@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Storage;
-using ProjectManagement.Domain.Repo;
-using ProjectManagement.Infrastructure.Persistance.Context;
+using ProjectManagement.Application.Abstraction.Repo;
+using ProjectManagement.Infrastructure.Persistence.Context;
 namespace ProjectManagement.Infrastructure.Repo
 {
     public class UnitOfWork(AppDbContext dbContext) : IUnitOfWork
