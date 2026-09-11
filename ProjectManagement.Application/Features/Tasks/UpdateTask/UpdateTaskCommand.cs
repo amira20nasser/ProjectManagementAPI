@@ -48,11 +48,9 @@ namespace ProjectManagement.Application.Features.Tasks.UpdateTask
                 entity.ProjectId = request.ProjectId;
             }
 
-            if (!Enum.TryParse<TaskItemStatus>(request.Status, true, out var status))
-                throw new ArgumentException($"Invalid Status value: {request.Status}");
-
-            if (!Enum.TryParse<TaskPriority>(request.Priority, true, out var priority))
-                throw new ArgumentException($"Invalid Priority value: {request.Priority}");
+            // Validation via ValidationBehavior guarantees valid enum names
+            var status = Enum.Parse<TaskItemStatus>(request.Status, true);
+            var priority = Enum.Parse<TaskPriority>(request.Priority, true);
 
             entity.Title = request.Title;
             entity.Description = request.Description;

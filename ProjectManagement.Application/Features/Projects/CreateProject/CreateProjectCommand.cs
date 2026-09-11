@@ -27,8 +27,8 @@ namespace ProjectManagement.Application.Features.Projects.CreateProject
 
         public async Task<ProjectDto> Handle(CreateProjectCommand request, CancellationToken cancellationToken)
         {
-            if (!Enum.TryParse<ProjectStatus>(request.Status, true, out var status))
-                throw new ArgumentException($"Invalid Status value: {request.Status}");
+            // Validation via ValidationBehavior guarantees valid enum name
+            var status = Enum.Parse<ProjectStatus>(request.Status, true);
 
             var entity = new Project
             {

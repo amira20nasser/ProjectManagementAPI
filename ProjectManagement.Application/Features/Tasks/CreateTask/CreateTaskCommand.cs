@@ -37,8 +37,8 @@ namespace ProjectManagement.Application.Features.Tasks.CreateTask
             if (project is null)
                 throw new KeyNotFoundException($"Project with Id {request.ProjectId} not found.");
 
-            if (!Enum.TryParse<TaskPriority>(request.Priority, true, out var priority))
-                throw new ArgumentException($"Invalid Priority value: {request.Priority}");
+            // Validation already handled by ValidationBehavior; safe to parse
+            var priority = Enum.Parse<TaskPriority>(request.Priority, true);
 
             var entity = new TaskItem
             {
