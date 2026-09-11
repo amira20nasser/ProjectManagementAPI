@@ -17,7 +17,7 @@ namespace ProjectManagement.Infrastructure.Persistence.Configurations
                 .HasDefaultValueSql("GETUTCDATE()")
                 .IsRequired();
             builder.Property(entity => entity.UpdatedAt)
-            .IsRequired(false);
+                .IsRequired();
         }
     }
 }
