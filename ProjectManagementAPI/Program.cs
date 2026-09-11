@@ -1,5 +1,6 @@
 
 using Microsoft.OpenApi;
+using ProjectManagement.Application;
 using ProjectManagement.Infrastructure;
 
 namespace ProjectManagementAPI
@@ -13,6 +14,10 @@ namespace ProjectManagementAPI
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddProblemDetails();
+            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+            // Application - MediatR, FluentValidation
+            builder.Services.AddApplication();
             // Infrastructure - Database, Repositories, UnitOfWork
             builder.Services.AddInfrastructure(builder.Configuration);
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -49,6 +54,8 @@ namespace ProjectManagementAPI
                 );
 
             var app = builder.Build();
+
+            app.UseExceptionHandler();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
