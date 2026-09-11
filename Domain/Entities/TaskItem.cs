@@ -9,7 +9,7 @@ namespace ProjectManagement.Domain.Entities
         public string? Description { get; set; }
         public DateTime? DueDate { get; set; }
 
-        public TaskStatus Status { get; set; }
+        public TaskItemStatus Status { get; set; }
         public TaskPriority Priority { get; set; }
 
         public Guid ProjectId { get; set; }
