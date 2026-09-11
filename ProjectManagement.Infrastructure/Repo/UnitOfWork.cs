@@ -1,14 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.DependencyInjection;
 using ProjectManagement.Application.Abstraction.Repo;
+using ProjectManagement.Domain.Entities;
 using ProjectManagement.Infrastructure.Persistence.Context;
+
 namespace ProjectManagement.Infrastructure.Repo
 {
-    public class UnitOfWork(AppDbContext dbContext) : IUnitOfWork
+    public class UnitOfWork(AppDbContext dbContext, IServiceProvider serviceProvider) : IUnitOfWork
     {
         private IDbContextTransaction? _currentTransaction;
+        public IGenericRepo<TEntity, TKey> GetRepository<TEntity, TKey>() where TEntity : BaseEntity<TKey>
+        {
+            return serviceProvider.GetRequiredService<IGenericRepo<TEntity, TKey>>();
+        }
+
         public async Task BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
            if(_currentTransaction is not null)
@@ -46,9 +51,9 @@ namespace ProjectManagement.Infrastructure.Repo
             }
         }
 
-        public async Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            return await dbContext.SaveChangesAsync();
+            return await dbContext.SaveChangesAsync(cancellationToken);
         }
 
         private async Task DisposeCurrentTransactionAsync()
